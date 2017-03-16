@@ -21,7 +21,7 @@ stages:
   script:
     - mkdir build || true # allowed to fail
     - cd build
-    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Release -DPACKAGE_GENERATOR=DEB
+    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR=DEB
     - make package -j2
 
 .build_debug_package_deb: &build_debug_package_deb
@@ -29,7 +29,7 @@ stages:
   script:
     - mkdir build || true # allowed to fail
     - cd build
-    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Debug -DPACKAGE_GENERATOR=DEB
+    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Debug -DCPACK_GENERATOR=DEB
     - make package -j2
 
 .push_to_bintray_deb: &bintray_release_deb # currently unused; requires some config
@@ -97,7 +97,8 @@ build_debug_1610:
     - apt-get -o dir::cache::archives="cache" update
     - apt-get -o dir::cache::archives="cache" install -y build-essential g++ cmake git
     - apt-get -o dir::cache::archives="cache" install -y qt5-default qtbase5-dev-tools
-    - apt-get -o dir::cache::archives="cache" install -y qttools5-dev-tools libqt5svg5-dev qtmultimedia5-dev
+    - apt-get -o dir::cache::archives="cache" install -y qttools5-dev-tools qtmultimedia5-dev
+    - apt-get -o dir::cache::archives="cache" install -y libqt5svg5-dev libqt5websockets5-dev
     - apt-get -o dir::cache::archives="cache" install -y libprotobuf-dev protobuf-compiler
 
 .build_stretch: &stretch
@@ -128,7 +129,7 @@ build_debug_stretch:
   script:
     - mkdir -p build || true
     - cd build
-    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Release -DPACKAGE_GENERATOR=RPM
+    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Release -DCPACK_GENERATOR=RPM
     - make package -j2
 
 .build_debug_package_rpm: &build_debug_package_rpm
@@ -136,7 +137,7 @@ build_debug_stretch:
   script:
     - mkdir -p build || true
     - cd build
-    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Debug -DPACKAGE_GENERATOR=RPM
+    - cmake .. -DWITH_SERVER=1 -DCMAKE_BUILD_TYPE=Debug -DCPACK_GENERATOR=RPM
     - make package -j2
 
 .push_to_bintray_rpm: &bintray_release_rpm # currently unused; requires some config
