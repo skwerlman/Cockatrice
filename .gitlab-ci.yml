@@ -129,6 +129,7 @@ build_debug_stretch:
   <<: *stretch
   <<: *build_debug_package_deb
   when: always
+  allow_failure: true
 
 
 #============================== REDHAT-BASED ==================================
