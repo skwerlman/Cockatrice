@@ -42,7 +42,7 @@ stages:
 
 .requirements_16xx: &install_requirements_16xx
   before_script:
-    - apt-get -o dir::cache::archives="cache" update
+    - apt-get -o dir::cache::archives="cache" update -qq
     - apt-get -o dir::cache::archives="cache" install -y build-essential g++ cmake git
     - apt-get -o dir::cache::archives="cache" install -y libprotobuf-dev protobuf-compiler
     - apt-get -o dir::cache::archives="cache" install -y qt5-default qttools5-dev qttools5-dev-tools
@@ -94,7 +94,7 @@ build_debug_1610:
 
 .requirements_stretch: &install_requirements_stretch
   before_script:
-    - apt-get -o dir::cache::archives="cache" update
+    - apt-get -o dir::cache::archives="cache" update -qq
     - apt-get -o dir::cache::archives="cache" install -y build-essential g++ cmake git
     - apt-get -o dir::cache::archives="cache" install -y qt5-default qtbase5-dev-tools
     - apt-get -o dir::cache::archives="cache" install -y qttools5-dev-tools qtmultimedia5-dev
@@ -152,7 +152,7 @@ build_debug_stretch:
   before_script:
     - /usr/bin/dnf -y groupinstall "development tools"
     - /usr/bin/dnf -y install wget qt5* cmake libgcrypt-devel dh-autoreconf gcc-c++
-    - /usr/bin/dnf -y install protobuf protobuf-devel
+    - /usr/bin/dnf -y install protobuf protobuf-devel rpm-build
 
 .build_fedora22: &fedora22
   image: fedora:22
